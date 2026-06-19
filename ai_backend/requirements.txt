@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+mysql-connector-python
+python-dotenv
+aiortc
+numpy
+# face_recognition is commented out initially to test build safely. If aiortc installs, we'll try face_recognition.
+# face_recognition

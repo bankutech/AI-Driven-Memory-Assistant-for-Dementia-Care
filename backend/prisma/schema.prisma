@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Keeping the original User model so the Login system doesn't break
+enum Role {
+  PATIENT
+  CAREGIVER
+  ADMIN
+}
+
+model User {
+  id              Int               @id @default(autoincrement())
+  email           String            @unique
+  password        String
+  firstName       String
+  lastName        String
+  role            Role              @default(PATIENT)
+  phone           String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+}
+
+// -----------------------------------------------------
+// NEW SCHEMA BASED ON DOCUMENTATION (CHAPTER 2)
+// -----------------------------------------------------
+
+model patients {
+  id              String         @id @default(uuid()) @db.VarChar(36)
+  first_name      String         @db.VarChar(50)
+  last_name       String         @db.VarChar(50)
+  diagnosis_stage String?        @db.VarChar(20)
+  created_at      DateTime       @default(now())
+  updated_at      DateTime       @updatedAt
+  
+  persons         persons[]
+}
+
+model persons {
+  id                 String           @id @default(uuid()) @db.VarChar(36)
+  patient_id         String?          @db.VarChar(36)
+  patient            patients?        @relation(fields: [patient_id], references: [id], onDelete: Cascade)
+  first_name         String           @db.VarChar(50)
+  last_name          String?          @db.VarChar(50)
+  nickname           String?          @db.VarChar(50)
+  relationship_label String?          @db.VarChar(50)
+  bio                String?          @db.Text
+  avatar_url         String?          @db.VarChar(255)
+  last_seen_at       DateTime?
+  created_at         DateTime         @default(now())
+
+  face_encodings     face_encodings[]
+  interactions       interactions[]
+  memories           memories[]
+}
+
+model face_encodings {
+  id                 String    @id @default(uuid()) @db.VarChar(36)
+  person_id          String?   @db.VarChar(36)
+  person             persons?  @relation(fields: [person_id], references: [id], onDelete: Cascade)
+  embedding          String    @db.Text
+  capture_condition  String?   @db.VarChar(50)
+  confidence_score   Float?
+  created_at         DateTime  @default(now())
+}
+
+model interactions {
+  id                 String    @id @default(uuid()) @db.VarChar(36)
+  person_id          String?   @db.VarChar(36)
+  person             persons?  @relation(fields: [person_id], references: [id], onDelete: Cascade)
+  transcript         String?   @db.Text
+  ai_summary         String?   @db.Text
+  sentiment_score    Float?
+  started_at         DateTime  @default(now())
+  ended_at           DateTime?
+}
+
+model memories {
+  id                 String    @id @default(uuid()) @db.VarChar(36)
+  person_id          String?   @db.VarChar(36)
+  person             persons?  @relation(fields: [person_id], references: [id], onDelete: Cascade)
+  content            String    @db.Text
+  memory_type        String?   @db.VarChar(30)
+  importance_score   Float?
+  tags               String?   @db.VarChar(255)
+  valid_from         DateTime? @db.Date
+  valid_until        DateTime? @db.Date
+  created_at         DateTime  @default(now())
+}
