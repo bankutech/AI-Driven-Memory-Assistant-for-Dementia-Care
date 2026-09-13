@@ -1,4 +1,4 @@
-# AI-Driven-Memory-Assistant-for-Dementia-Care
+# AI Driven Memory Assistant for Dementia Care
 
 ## Overview
 An innovative, full-stack application designed to support dementia patients and their caretakers by providing AI-assisted memory recall, daily activity tracking, and intelligent reminders.
