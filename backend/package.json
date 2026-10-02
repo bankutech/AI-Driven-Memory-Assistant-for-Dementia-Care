@@ -1,26 +1,17 @@
 {
-  "name": "backend",
+  "name": "memory-assistant-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Express + SQLite backend for the AI-Driven Memory Assistant prototype",
+  "main": "server.js",
+  "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "dev": "node --watch index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node --watch server.js",
+    "start": "node server.js",
+    "seed": "node database/seed.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
-    "@prisma/client": "^5.10.2",
-    "bcryptjs": "^3.0.3",
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3",
-    "multer": "^2.1.1",
-    "mysql2": "^3.22.5",
-    "prisma": "^5.10.2"
+    "better-sqlite3": "^12.11.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
   }
 }

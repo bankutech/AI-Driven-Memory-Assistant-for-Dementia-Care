@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-size: 16px;
+}
+
+body {
+  @apply bg-nyala-bg text-nyala-text antialiased;
+  font-family: 'Heebo', system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Syne', system-ui, sans-serif;
+}
+
+@layer components {
+  .card {
+    @apply bg-white border border-nyala-gray shadow-sm rounded-sm;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-nyala-primary disabled:opacity-50 disabled:cursor-not-allowed rounded-sm;
+  }
+  .btn-primary {
+    @apply btn bg-nyala-primary text-white hover:bg-[#093a82];
+  }
+  .btn-secondary {
+    @apply btn bg-white text-nyala-text border border-nyala-gray hover:bg-slate-50;
+  }
+  .btn-danger {
+    @apply btn bg-white text-red-600 border border-red-200 hover:bg-red-50;
+  }
+  .btn-success {
+    @apply btn bg-green-600 text-white hover:bg-green-700;
+  }
+  .input {
+    @apply w-full border border-nyala-gray bg-white px-4 py-3 text-base text-nyala-text placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-nyala-primary focus:border-nyala-primary rounded-sm;
+  }
+  .label {
+    @apply block text-sm font-semibold text-nyala-text mb-2;
+  }
+  .pill {
+    @apply inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold rounded-sm;
+  }
+}
